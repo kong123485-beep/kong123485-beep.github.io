@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JLPT 日本語學習全功能筆記庫</title>
+  <title>語言學習檔案總導覽入口</title>
   <!-- 引入 Tailwind CSS 與 Google 字體 -->
   <script src="https://tailwindcss.com"></script>
   <link href="https://googleapis.com" rel="stylesheet">
@@ -21,171 +21,138 @@
   </script>
   <style>
     body { background-color: #FAF8F5; }
-    /* 隱藏未選中的內容區塊 */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .card-hidden { display: none !important; }
   </style>
 </head>
 <body class="font-sans text-gray-800 antialiased min-h-screen flex flex-col">
 
-  <!-- 頂部導覽列 -->
-  <header class="bg-[#111] text-white py-4 shadow-md sticky top-0 z-50">
-    <div class="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <span class="text-2xl font-serif font-bold text-[#7CFF7C]">JLPT</span>
-        <h1 class="text-xl font-medium tracking-wide">日本語學習綜合儀表板</h1>
+  <!-- 頂部大橫幅 -->
+  <header class="bg-[#111] text-white py-10 shadow-md">
+    <div class="max-w-[1200px] mx-auto px-6 text-center md:text-left md:flex md:justify-between md:items-center">
+      <div>
+        <h1 class="text-3xl font-serif font-bold text-[#7CFF7C] tracking-wide">Language Learning Hub</h1>
+        <p class="text-gray-400 text-sm mt-2">個人專屬多國語系與知識庫學習導覽入口</p>
       </div>
-      <div class="text-xs text-gray-400 bg-gray-900 px-3 py-1 rounded-full border border-gray-800 hidden sm:block">
-        Repository: kong123485-beep
+      <div class="mt-4 md:mt-0 text-xs text-gray-400 bg-gray-950 px-4 py-2 rounded-xl border border-gray-800 inline-block">
+        👤 User: kong123485-beep
       </div>
     </div>
   </header>
 
-  <!-- 主內容工作區 -->
-  <div class="flex-grow max-w-[1400px] w-full mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
-    
-    <!-- 左側導覽列 / 控制台 (1欄寬) -->
-    <aside class="lg:col-span-1 flex flex-col gap-5">
-      <!-- 學習清單目錄 -->
-      <div class="bg-white border border-[#e9e5df] rounded-xl p-4 shadow-sm">
-        <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 px-2">筆記目錄</h2>
-        <nav class="flex flex-col gap-1">
-          <!-- 儀表板首頁分頁鈕 -->
-          <button onclick="switchTab('dashboard', this)" class="tab-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-all bg-[#5b5bd6] text-white flex items-center gap-2">
-            📊 <span>儀表板首頁</span>
-          </button>
-          
-          <!-- 副詞與接續詞分頁鈕 -->
-          <button onclick="switchTab('adverbs', this)" class="tab-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-gray-600 hover:bg-gray-50 hover:text-gray-900 flex items-center justify-between">
-            <span class="flex items-center gap-2">📙 <span>副詞與接續詞</span></span>
-            <span class="text-[10px] bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded font-bold">單字</span>
-          </button>
-          
-          <!-- 文法核心筆記分頁鈕 -->
-          <button onclick="switchTab('grammar', this)" class="tab-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-gray-600 hover:bg-gray-50 hover:text-gray-900 flex items-center justify-between">
-            <span class="flex items-center gap-2">📘 <span>文法核心筆記</span></span>
-            <span class="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold">文法</span>
-          </button>
-        </nav>
-      </div>
-
-      <!-- 進度追蹤器小工具 -->
-      <div class="bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm">
-        <h3 class="text-sm font-bold font-serif mb-3 flex items-center gap-2 text-gray-900">
-          🎯 <span>複習進度條</span>
-        </h3>
-        <div class="w-full bg-gray-200 rounded-full h-2 mb-1.5 overflow-hidden">
-          <div id="progressBar" class="bg-[#5b5bd6] h-2 rounded-full transition-all duration-500" style="width: 33%"></div>
-        </div>
-        <div class="flex justify-between text-xs text-gray-500 mb-4">
-          <span>完成度</span>
-          <span id="progressText">33% (1/3)</span>
-        </div>
-        <div class="flex flex-col gap-2.5 border-t border-[#f0ece6] pt-3">
-          <label class="flex items-center gap-2.5 cursor-pointer text-xs">
-            <input type="checkbox" checked class="progress-check w-3.5 h-3.5 rounded text-[#5b5bd6] focus:ring-[#5b5bd6]" onchange="updateProgress()">
-            <span>精通基礎副詞變化</span>
-          </label>
-          <label class="flex items-center gap-2.5 cursor-pointer text-xs">
-            <input type="checkbox" class="progress-check w-3.5 h-3.5 rounded text-[#5b5bd6] focus:ring-[#5b5bd6]" onchange="updateProgress()">
-            <span>熟記核心接續詞結構</span>
-          </label>
-          <label class="flex items-center gap-2.5 cursor-pointer text-xs">
-            <input type="checkbox" class="progress-check w-3.5 h-3.5 rounded text-[#5b5bd6] focus:ring-[#5b5bd6]" onchange="updateProgress()">
-            <span>動詞變化與文法總複習</span>
-          </label>
-        </div>
-      </div>
-    </aside>
-
-    <!-- 右側：動態內容展示區 (3欄寬) -->
-    <main class="lg:col-span-3 bg-white border border-[#e9e5df] rounded-xl p-6 md:p-8 shadow-sm min-h-[500px]">
+  <!-- 搜尋與篩選核心控制區 -->
+  <section class="max-w-[1200px] w-full mx-auto px-6 mt-8">
+    <div class="bg-white border border-[#e9e5df] rounded-2xl p-6 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
       
-      <!-- ================= 區塊 1：儀表板首頁 ================= -->
-      <div id="dashboard" class="tab-content active animate-fade-in">
-        <div class="border-b border-[#e9e5df] pb-4 mb-6">
-          <h2 class="text-2xl font-bold text-gray-900 font-serif">歡迎來到日語學習空間 👋</h2>
-          <p class="text-sm text-gray-500 mt-1">請在左側選單選擇您想複習的日語筆記項目。</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div onclick="document.querySelectorAll('.tab-btn')[1].click()" class="border border-gray-200 rounded-lg p-4 hover:border-[#5b5bd6] cursor-pointer transition-all bg-gray-50">
-            <h4 class="font-bold text-gray-900 flex items-center gap-2">📙 副詞與接續詞</h4>
-            <p class="text-xs text-gray-500 mt-1">收錄了日語閱讀中極為關鍵的轉折詞與修飾副詞。</p>
-          </div>
-          <div onclick="document.querySelectorAll('.tab-btn')[2].click()" class="border border-gray-200 rounded-lg p-4 hover:border-[#5b5bd6] cursor-pointer transition-all bg-gray-50">
-            <h4 class="font-bold text-gray-900 flex items-center gap-2">📘 文法核心筆記</h4>
-            <p class="text-xs text-gray-500 mt-1">整理了句型結構變化以及易混淆的文法焦點。</p>
-          </div>
-        </div>
-
-        <div class="bg-gradient-to-br from-[#111] to-gray-800 text-white rounded-xl p-6">
-          <span class="text-xs font-bold text-[#7CFF7C] tracking-wider uppercase">今日勵志金句</span>
-          <p class="font-serif text-lg mt-2 leading-relaxed">「継続は力なり。」</p>
-          <p class="text-gray-400 text-xs mt-1">（持之以恆，即是力量。每天進步一點點，就能離合格更近一步！）</p>
-        </div>
+      <!-- 🔍 關鍵字搜尋框 -->
+      <div class="relative w-full md:w-96">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">🔍</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          oninput="filterCards()" 
+          placeholder="輸入關鍵字搜尋筆記... (如: N4, 文法, 聖經)" 
+          class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#5b5bd6] focus:bg-white transition-all"
+        >
       </div>
 
-      <!-- ================= 區塊 2：副詞與接續詞內容 ================= -->
-      <div id="adverbs" class="tab-content">
-        <div class="border-b border-[#e9e5df] pb-4 mb-6 flex justify-between items-center">
-          <div>
-            <h2 class="text-2xl font-bold text-gray-900 font-serif">Japanese-Adverbs-Conjunctions</h2>
-            <p class="text-sm text-gray-500 mt-1">副詞與接續詞筆記內容</p>
-          </div>
-          <span class="text-xs bg-orange-100 text-orange-700 px-2.5 py-1 rounded-md font-bold">Vocabulary</span>
-        </div>
-        
-        <!-- 💡 請在此處貼上您原本 Japanese-Adverbs-Conjunctions.html <body> 裡面的純文字/表格/HTML 內容 -->
-        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-4">
-          <div class="p-4 bg-orange-50 text-orange-800 rounded-lg text-sm mb-4">
-            ⚠️ <strong>內容整合提示：</strong>您可以打開您原本的 <code>Japanese-Adverbs-Conjunctions.html</code> 檔案，將裡面 <code>&lt;body&gt;</code> 內所寫的表格或筆記文字內容，複製並貼到 <code>index.html</code> 的這個位置。
-          </div>
-          
-          <!-- 範例結構（可自由替換） -->
-          <h3 class="text-lg font-bold text-gray-900 mt-6 border-l-4 border-orange-500 pl-2">一、 常見重要副詞</h3>
-          <table class="w-full border-collapse border border-gray-200 text-sm mt-2">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="border border-gray-200 p-2 text-left">副詞</th>
-                <th class="border border-gray-200 p-2 text-left">中文意思</th>
-                <th class="border border-gray-200 p-2 text-left">例句說明</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="border border-gray-200 p-2 font-mono text-orange-600">必ず (かならず)</td>
-                <td class="border border-gray-200 p-2">必定、一定要</td>
-                <td class="border border-gray-200 p-2">明日は必ず来てください。</td>
-              </tr>
-              <tr>
-                <td class="border border-gray-200 p-2 font-mono text-orange-600">絶対に (ぜったいに)</td>
-                <td class="border border-gray-200 p-2">絕對（後常接否定）</td>
-                <td class="border border-gray-200 p-2">絶対に諦めない。</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- 🏷️ 標籤分類篩選鈕 -->
+      <div class="flex flex-wrap gap-2 w-full md:w-auto justify-start md:justify-end" id="filterButtonGroup">
+        <button onclick="filterCategory('all', this)" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all bg-[#5b5bd6] text-white">全部檔案</button>
+        <button onclick="filterCategory('japanese', this)" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">🇯🇵 日語學習</button>
+        <button onclick="filterCategory('korean', this)" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">🇰🇷 韓語學習</button>
+        <button onclick="filterCategory('english', this)" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">🇬🇧 英語/法文</button>
+        <button onclick="filterCategory('bible', this)" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">📜 聖經研究</button>
       </div>
 
-      <!-- ================= 區塊 3：文法核心筆記內容 ================= -->
-      <div id="grammar" class="tab-content">
-        <div class="border-b border-[#e9e5df] pb-4 mb-6 flex justify-between items-center">
-          <div>
-            <h2 class="text-2xl font-bold text-gray-900 font-serif">Japanese-Grammar-Notes</h2>
-            <p class="text-sm text-gray-500 mt-1">文法核心筆記內容</p>
-          </div>
-          <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-md font-bold">Grammar</span>
+    </div>
+  </section>
+
+  <!-- 檔案網格展示區 -->
+  <main class="flex-grow max-w-[1200px] w-full mx-auto px-6 py-8">
+    
+    <!-- 查無結果時顯示的畫面 -->
+    <div id="noResults" class="hidden text-center py-12 text-gray-400">
+      <span class="text-4xl block mb-2">😭</span>
+      <p>找不到符合條件的筆記檔案，請嘗試其他關鍵字。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cardsContainer">
+      
+      <!-- ================= 儲存庫：JLPT 檔案 ================= -->
+      <!-- 卡片 1 -->
+      <a href="Japanese-Adverbs-Conjunctions.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="japanese" data-title="Japanese Adverbs Conjunctions 日語 副詞 接續詞">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-orange-100 text-orange-700 px-2 py-0.5 rounded">JLPT / 副詞</span>
+          <span class="text-xs text-gray-400">🇯🇵 日語</span>
         </div>
-        
-        <!-- 💡 請在此處貼上您原本 Japanese-Grammar-Notes.html <body> 裡面的純文字/表格/HTML 內容 -->
-        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-4">
-          <div class="p-4 bg-blue-50 text-blue-800 rounded-lg text-sm mb-4">
-            ⚠️ <strong>內容整合提示：</strong>您可以打開您原本的 <code>Japanese-Grammar-Notes.html</code> 檔案，將裡面 <code>&lt;body&gt;</code> 內所寫的文法句型或重點，複製並貼到 <code>index.html</code> 的這個位置。
-          </div>
-          
-          <!-- 範例結構（可自由替換） -->
-          <h3 class="text-lg font-bold text-gray-900 mt-6 border-l-4 border-blue-500 pl-2">一、 核心句型結構</h3>
-          <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <h4 class="font-bold text-gray-900">1. ～わけにはいかない (不能……/必須……)</h4>
-            <p class="text-sm text-gray-600 mt-1"><strong>接續：</strong>動詞辭書形 / ない形</p>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">Japanese-Adverbs-Conjunctions.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：日文核心副詞用法與前後語氣轉折接續詞彙總。</p>
+      </a>
+
+      <!-- 卡片 2 -->
+      <a href="Japanese-Grammar-Notes.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="japanese" data-title="Japanese Grammar Notes 日語 文法 核心 筆記">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-orange-100 text-orange-700 px-2 py-0.5 rounded">JLPT / 文法</span>
+          <span class="text-xs text-gray-400">🇯🇵 日語</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">Japanese-Grammar-Notes.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：日本語級別句型結構變化與易混淆焦點核心筆記。</p>
+      </a>
+
+      <!-- ================= 儲存庫：dee 檔案 ================= -->
+      <!-- 卡片 3 -->
+      <a href="N4單字大全.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="japanese" data-title="N4單字大全 日語 日本語 詞彙 單字">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-red-100 text-red-700 px-2 py-0.5 rounded">dee / N4</span>
+          <span class="text-xs text-gray-400">🇯🇵 日語</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">N4單字大全.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：JLPT N4 檢定必考核心單字與詞彙彙整。</p>
+      </a>
+
+      <!-- 卡片 4 -->
+      <a href="N5單字大全.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="japanese" data-title="N5單字大全 日語 日本語 詞彙 單字">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-red-100 text-red-700 px-2 py-0.5 rounded">dee / N5</span>
+          <span class="text-xs text-gray-400">🇯🇵 日語</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">N5單字大全.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：JLPT N5 基礎必考單字、音調與日常詞彙清單。</p>
+      </a>
+
+      <!-- 卡片 5 -->
+      <a href="Beautiful-Korean-Grammar-Flashcard.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="korean" data-title="Beautiful Korean Grammar Flashcard 韓語 韓文 文法 閃卡">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-0.5 rounded">dee / Flashcard</span>
+          <span class="text-xs text-gray-400">🇰🇷 韓語</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">Beautiful-Korean-Grammar-Flashcard.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：精美排版的韓語文法字卡（Flashcard），便於快速複習記憶。</p>
+      </a>
+
+      <!-- 卡片 6 -->
+      <a href="聖經重要經文四語對照.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="bible" data-title="聖經重要經文四語對照 聖經 經文 多語 對照">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-purple-100 text-purple-700 px-2 py-0.5 rounded">dee / Bible</span>
+          <span class="text-xs text-gray-400">📜 聖經</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">聖經重要經文四語對照.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：精選聖經金句之四種語言對照閱讀筆記。</p>
+      </a>
+
+      <!-- 卡片 7 -->
+      <a href="路加1至23章.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="bible" data-title="路加1至23章 路加福音 聖經 經文">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-purple-100 text-purple-700 px-2 py-0.5 rounded">dee / 路加福音</span>
+          <span class="text-xs text-gray-400">📜 聖經</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#5b5bd6] transition-colors">路加1至23章.html</h3>
+        <p class="text-gray-500 text-xs mt-2 line-clamp-2">點擊開啟：路加福音第 1 章至第 23 章之章節內容與Responsive響應式學習介面。</p>
+      </a>
+
+      <!-- 卡片 8 -->
+      <a href="體文 72 核心語法隨身查.html" target="_blank" class="file-card group bg-white border border-[#e9e5df] rounded-xl p-5 shadow-sm hover:shadow-md hover:border-[#5b5bd6] transition-all duration-300" data-category="english" data-title="體文 72 核心語法隨身查 英文 核心語法 法文 隨身查 體文">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[11px] font-bold uppercase tracking-wider bg-teal-100 text-teal-700 px-2 py-0.5 rounded">dee / 語法隨身查</span>
+          <span class="text-xs text-gray-400">🇬🇧 英語/法文</span>
+        </div>
