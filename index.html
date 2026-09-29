@@ -5,35 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>我的學習筆記總覽</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif; 
-           max-width: 700px; margin: 50px auto; padding: 20px; background: #f7f7f7; }
-    h1 { text-align: center; color: #333; }
-    .card { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    a { display: block; padding: 12px; margin: 8px 0; background: #4f46e5; color: white; text-decoration: none; 
-        border-radius: 8px; text-align: center; transition: 0.2s; }
-    a:hover { background: #3730a3; }
-    h2 { color: #4f46e5; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+    body { max-width:720px; margin:0 auto; padding:24px 20px 60px; background:#f6f7fb; font-family:-apple-system,"Microsoft JhengHei",sans-serif; }
+    .toolbar { background:white; border-radius:12px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; box-shadow:0 2px 12px rgba(0,0,0,.06); margin-bottom:20px; }
+    .switch { position:relative; width:48px; height:28px; } .switch input{opacity:0;width:0;height:0;}
+    .slider{position:absolute;top:0;left:0;right:0;bottom:0;background:#d1d5db;border-radius:28px;transition:.2s;cursor:pointer;}
+    .slider:before{content:"";position:absolute;height:22px;width:22px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.2s;}
+    input:checked+.slider{background:#4f46e5;} input:checked+.slider:before{transform:translateX(20px);}
+    .card{background:white;padding:20px;border-radius:16px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+    h2{color:#4f46e5;font-size:16px;border-bottom:1px solid #f3f4f6;padding-bottom:8px;}
+    a{display:block;padding:11px 14px;margin:8px 0;background:#eef2ff;color:#4338ca;text-decoration:none;border-radius:10px;font-weight:500;}
+    a:hover{background:#4f46e5;color:white;}
+    button,select{padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb;background:white;}
+    button{background:#4f46e5;color:white;border:none;cursor:pointer;}
   </style>
 </head>
 <body>
-  <h1>📚 學習筆記總覽</h1>
+  <h1 style="text-align:center;">📚 我的學習筆記總覽</h1>
 
-  <div class="card">
-    <h2>JLPT 日文</h2>
+  <div class="toolbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <label class="switch"><input type="checkbox" id="autoToggle"><span class="slider"></span></label>
+      <b style="font-size:14px;">自動更新 Auto Refresh</b><span id="countdown" style="font-size:13px;color:#6b7280;"></span>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <select id="intervalSelect">
+        <option value="0">關閉</option><option value="1">1 分鐘</option><option value="3" selected>3 分鐘</option><option value="5">5 分鐘</option><option value="10">10 分鐘</option><option value="30">30 分鐘</option>
+      </select>
+      <button id="nowBtn">立即更新</button>
+    </div>
+  </div>
+
+  <div class="card"><h2>JLPT 日文</h2>
     <a href="https://kong123485-beep.github.io/JLPT/Japanese-Adverbs-Conjunctions.html" target="_blank">日文副詞・連接詞</a>
     <a href="https://kong123485-beep.github.io/JLPT/Japanese-Grammar-Notes.html" target="_blank">日文法筆記</a>
     <a href="https://kong123485-beep.github.io/dee/N4單字大全.html" target="_blank">N4 單字大全</a>
     <a href="https://kong123485-beep.github.io/dee/N5單字大全.html" target="_blank">N5 單字大全</a>
   </div>
-
-  <div class="card">
-    <h2>Korea 韓文加聖經</h2>
+  <div class="card"><h2> 韓文加聖經</h2>
     <a href="https://kong123485-beep.github.io/dee/Beautiful-Korean-Grammar-Flashcard.html" target="_blank">韓文法閃卡</a>
     <a href="https://kong123485-beep.github.io/dee/韓文 72 核心語法隨身查.html" target="_blank">韓文 72 核心語法隨身查</a>
     <a href="https://kong123485-beep.github.io/dee/聖經重要經文四語對照.html" target="_blank">聖經重要經文四語對照</a>
     <a href="https://kong123485-beep.github.io/dee/詩篇1章23章.html" target="_blank">詩篇1章23章</a>
-    
   </div>
 
+<script>
+let timer=null, remaining=0;
+const toggle=document.getElementById('autoToggle'), select=document.getElementById('intervalSelect'), countdown=document.getElementById('countdown');
+function stop(){ if(timer)clearInterval(timer); timer=null; countdown.textContent='';}
+function start(){ stop(); let mins=parseInt(select.value); if(mins==0||!toggle.checked)return; remaining=mins*60; countdown.textContent=' · '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0')+' 後更新'; timer=setInterval(()=>{remaining--; if(remaining<=0)location.reload(); else countdown.textContent=' · '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0')+' 後更新';},1000);}
+toggle.onchange=()=>{ if(toggle.checked&&select.value=='0')select.value='3'; toggle.checked?start():stop();};
+select.onchange=()=>{ if(select.value=='0'){toggle.checked=false;stop();} else if(toggle.checked)start();};
+document.getElementById('nowBtn').onclick=()=>location.reload();
+toggle.checked=false; stop(); // 預設關閉
+</script>
 </body>
 </html>
