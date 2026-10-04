@@ -42,7 +42,9 @@
     <a href="https://kong123485-beep.github.io/dee/N4單字大全.html" target="_blank">N4 單字大全</a>
     <a href="https://kong123485-beep.github.io/dee/N5單字大全.html" target="_blank">N5 單字大全</a>
     <a href="https://kong123485-beep.github.io/JLPT/japanword.html" target="_blank">japanword</a>
+    <a href="https://kong123485-beep.github.io/JLPT/japanese_shopping_phrases.html">Japanese_shopping</a>
   </div>
+      
   <div class="card"><h2> 韓文</h2>
     <a href="https://kong123485-beep.github.io/dee/TOPIK-I-1671.html" target="_blank">📘 TOPIK I 1671 詞彙 <span class="badge">NEW</span></a>
     <a href="https://kong123485-beep.github.io/dee/Beautiful-Korean-Grammar-Flashcard.html" target="_blank">韓文法閃卡</a>
@@ -58,7 +60,7 @@ let timer=null, remaining=0;
 const toggle=document.getElementById('autoToggle'), select=document.getElementById('intervalSelect'), countdown=document.getElementById('countdown');
 function stop(){ if(timer)clearInterval(timer); timer=null; countdown.textContent='';}
 function start(){ stop(); let mins=parseInt(select.value); if(mins==0||!toggle.checked)return; remaining=mins*60; countdown.textContent=' · '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0')+' 後更新'; timer=setInterval(()=>{remaining--; if(remaining<=0)location.reload(); else countdown.textContent=' · '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0')+' 後更新';},1000);}
-toggle.onchange=()=>{ if(toggle.checked&&select.value=='0')select.value='3'; toggle.checked?start():stop();};
+toggle.onchange=()=>{ if(toggle.checked&&sele"ct.value=='0')select.value='3'; toggle.checked?start():stop();};
 select.onchange=()=>{ if(select.value=='0'){toggle.checked=false;stop();} else if(toggle.checked)start();};
 document.getElementById('nowBtn').onclick=()=>location.reload();
 toggle.checked=false; stop(); // 預設關閉
