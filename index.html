@@ -7,12 +7,14 @@
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Noto Sans TC',sans-serif;background:#fbfbfa;color:#111}
 header{position:sticky;top:0;backdrop-filter:blur(22px);background:rgba(251,251,250,.86);border-bottom:1px solid #ececf0;padding:16px 20px;z-index:10}
 .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
+@media (max-width:720px){.wrap{padding:16px 12px 80px}header b{font-size:14px}header span{display:block;margin-top:4px}}
 .card{background:#fff;border:1px solid #ececf0;border-radius:20px;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .card a{padding:8px 14px;border-radius:999px;background:#111;color:#fff;text-decoration:none;font-size:13px;font-weight:700}
 .badge{font-size:10px;font-weight:800;background:#6366f1;color:#fff;padding:2px 8px;border-radius:999px;margin-left:8px}
 .repo{margin-top:32px;border:1px solid #ececf0;border-radius:22px;overflow:hidden;background:#fff}
 .repo-head{padding:18px 20px;background:#f9f9fb;border-bottom:1px solid #ececf0;display:flex;justify-content:space-between;align-items:center}
 .repo-body{padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.repo-body{grid-template-columns:1fr}.card{flex-direction:column;align-items:flex-start}.card a{width:100%;text-align:center;margin-top:10px}}
 h2{font-size:16px}
 </style>
 <style>
