@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nt-letters-v1';
+const CACHE_NAME = 'dee_study';
 const ASSETS = [
   'index.html',
   'manifest.json',
