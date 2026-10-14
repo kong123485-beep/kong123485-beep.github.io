@@ -1,41 +1,221 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>dee's Study Library - History & DSE Updated</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Noto Sans TC',sans-serif;background:#fbfbfa;color:#111}
-header{position:sticky;top:0;backdrop-filter:blur(22px);background:rgba(251,251,250,.86);border-bottom:1px solid #ececf0;padding:16px 20px;z-index:10}
-.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
-@media (max-width:720px){.wrap{padding:16px 12px 80px}header b{font-size:14px}header span{display:block;margin-top:4px}}
-.card{background:#fff;border:1px solid #ececf0;border-radius:20px;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.card a{padding:8px 14px;border-radius:999px;background:#111;color:#fff;text-decoration:none;font-size:13px;font-weight:700}
-.badge{font-size:10px;font-weight:800;background:#6366f1;color:#fff;padding:2px 8px;border-radius:999px;margin-left:8px}
-.repo{margin-top:32px;border:1px solid #ececf0;border-radius:22px;overflow:hidden;background:#fff}
-.repo-head{padding:18px 20px;background:#f9f9fb;border-bottom:1px solid #ececf0;display:flex;justify-content:space-between;align-items:center}
-.repo-body{padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media (max-width:720px){.repo-body{grid-template-columns:1fr}.card{flex-direction:column;align-items:flex-start}.card a{width:100%;text-align:center;margin-top:10px}}
-h2{font-size:16px}
-</style>
-<style>
-.repo.jlpt{border-color:#e0e7ff}.repo.jlpt .repo-head{background:#eef2ff}
-.repo.topik{border-color:#ffe4e6}.repo.topik .repo-head{background:#fff1f2}
-.repo.bible{border-color:#d1fae5}.repo.bible .repo-head{background:#ecfdf5}
-.repo.history{border-color:#fef3c7}.repo.history .repo-head{background:#fffbeb}
-.repo.dse{border-color:#e0f2fe}.repo.dse .repo-head{background:#f0f9ff}
-.dot{width:10px;height:10px;border-radius:999px;display:inline-block;margin-right:8px}
-.dot.jlpt{background:#6366f1}.dot.topik{background:#f43f5e}.dot.bible{background:#10b981}.dot.history{background:#f59e0b}.dot.dse{background:#0ea5e9}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dee's Study Library - History & DSE Updated</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --text-color: #1f2937;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+        .card .badge {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .card p {
+            margin: 0 0 20px 0;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<header><div style="max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center"><b>dee's Study Library · JLPT Index + TOPIK 3件 + Bible 排兩行淺色版</b><span style="font-size:11px;color:#6b7280">5 repos · JLPT/Index.html + TOPIK 3件 + History/Index + DSE/Index</span></div></header>
-<div class="wrap">
-<div class="repo jlpt"><div class="repo-head"><h2><span class="dot jlpt"></span>JLPT</h2></div><div class="repo-body"><div class="card"><div><b>Index.html</b><span class="badge" style="background:#6366f1">UPDATED JLPT 溫習總目錄</span><div style="font-size:12px;color:#6b7280;margin-top:4px">JLPT 溫習總目錄・N5-N3 8個文件入口・已精簡舊細項</div></div><div><a href="https://kong123485-beep.github.io/JLPT/Index.html" target="_blank">開啟 ↗</a></div></div></div></div><div class="repo topik"><div class="repo-head"><h2><span class="dot topik"></span>TOPIK</h2></div><div class="repo-body">
-<div class="card"><div><b>72.html</b><span class="badge" style="background:#f43f5e">TOPIK 基礎</span><div style="font-size:12px;color:#6b7280;margin-top:4px">72句核心句型・韓語口語骨架</div></div><div><a href="https://kong123485-beep.github.io/TOPIK/72.html" target="_blank">開啟 ↗</a></div></div>
-<div class="card"><div><b>Topik-94.html</b><span class="badge" style="background:#f43f5e">TOPIK 精選</span><div style="font-size:12px;color:#6b7280;margin-top:4px">TOPIK 94題精選・中高級必備</div></div><div><a href="https://kong123485-beep.github.io/TOPIK/Topik-94.html" target="_blank">開啟 ↗</a></div></div>
-<div class="card"><div><b>Topik_study.html</b><span class="badge" style="background:#f43f5e">NEW 最終無遮擋版</span><div style="font-size:12px;color:#6b7280;margin-top:4px">TOPIK TOPIK 學習總整合・自動追句・無遮擋最終版</div></div><div><a href="https://kong123485-beep.github.io/TOPIK/Topik_study.html" target="_blank">開啟 ↗</a></div></div>
-</div></div><div class="repo bible"><div class="repo-head"><h2><span class="dot bible"></span>Bible</h2></div><div class="repo-body"><div class="card"><div><b>bible-verses.html</b><div style="font-size:12px;color:#6b7280;margin-top:4px">整理金句集・中英對照・靈修精選</div></div><div><a href="https://kong123485-beep.github.io/dee/bible-verses.html" target="_blank">開啟 ↗</a></div></div><div class="card"><div><b>psalm-1-23.html</b><div style="font-size:12px;color:#6b7280;margin-top:4px">詩篇1章23章・經文默想・中英日對照</div></div><div><a href="https://kong123485-beep.github.io/dee/psalm-1-23.html" target="_blank">開啟 ↗</a></div></div><div class="card"><div><b>english-four-lang.html</b><div style="font-size:12px;color:#6b7280;margin-top:4px">重要英文四語對照・中英日韓・實用會話</div></div><div><a href="https://kong123485-beep.github.io/dee/english-four-lang.html" target="_blank">開啟 ↗</a></div></div></div></div><div class="repo history"><div class="repo-head"><h2><span class="dot history"></span>History</h2></div><div class="repo-body"><div class="card"><div><b>Index.html</b><span class="badge">UPDATED Index 總目錄</span><div style="font-size:12px;color:#6b7280;margin-top:4px">History 總目錄・比較史學 9 篇入口・已刪除舊細項，只保留總索引</div></div><div><a href="https://kong123485-beep.github.io/History/Index.html" target="_blank">開啟 ↗</a></div></div></div></div><div class="repo dse"><div class="repo-head"><h2><span class="dot dse"></span>DSE</h2></div><div class="repo-body"><div class="card"><div><b>index.html</b><span class="badge">NEW DSE 總目錄</span><div style="font-size:12px;color:#6b7280;margin-top:4px">DSE 總目錄・文憑試資源入口</div></div><div><a href="https://kong123485-beep.github.io/DSE/index.html" target="_blank">開啟 ↗</a></div></div></div></div>
+
+<div class="container">
+    <header>
+        <h1>dee's Study Library</h1>
+        <p class="subtitle">JLPT Index + TOPIK 3件 + Bible 排兩行淺色版 + 旅遊指南</p>
+    </header>
+
+    <!-- JLPT Section -->
+    <section>
+        <h2>JLPT</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <h3><span class="badge">UPDATED</span>Index.html</h3>
+                    <p>JLPT 溫習總目錄・N5-N3 8個文件入口・已精簡舊細項</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOPIK Section -->
+    <section>
+        <h2>TOPIK</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <h3>72.html</h3>
+                    <p>TOPIK 基礎・72句核心句型・韓語口語骨架</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+            <div class="card">
+                <div>
+                    <h3>Topik-94.html</h3>
+                    <p>TOPIK 精選・94題精選・中高級必備</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+            <div class="card">
+                <div>
+                    <h3><span class="badge">NEW</span>Topik_study.html</h3>
+                    <p>最終無遮擋版・學習總整合・自動追句・無遮擋最終版</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bible Section -->
+    <section>
+        <h2>Bible</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <h3>bible-verses.html</h3>
+                    <p>整理金句集・中英對照・靈修精選</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+            <div class="card">
+                <div>
+                    <h3>psalm-1-23.html</h3>
+                    <p>詩篇1章23章・經文默想・中英日對照</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+            <div class="card">
+                <div>
+                    <h3>english-four-lang.html</h3>
+                    <p>重要英文四語對照・中英日韓・實用會話</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section>
+        <h2>History</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <h3><span class="badge">UPDATED</span>Index.html</h3>
+                    <p>Index 總目錄・比較史學 9 篇入口・已刪除舊細項，只保留總索引</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DSE Section -->
+    <section>
+        <h2>DSE</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <h3><span class="badge">NEW</span>index.html</h3>
+                    <p>DSE 總目錄・文憑試資源入口</p>
+                </div>
+                <a href="#" class="btn">開啟 ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Section -->
+    <section>
+        <h2>Travel</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <h3><span class="badge">NEW</span>index.html</h3>
+                    <p>旅遊指南選單・實用中英日韓對照工具（外出交通、飯店住宿、日常用語、餐廳用餐）</p>
+                </div>
+                <a href="https://github.io" class="btn">開啟 ↗</a>
+            </div>
+        </div>
+    </section>
 </div>
+
 </body>
 </html>
