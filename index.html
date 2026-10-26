@@ -25,7 +25,7 @@
 <p style="font-size:13px;color:#6b7280;margin-top:8px;line-height:1.5">保留之前網頁・只加 https://kong123485-beep.github.io/N3_N5/ + <span style="color:#111113;font-weight:500">TOPIK index → https://kong123485-beep.github.io/TOPIK/index.html</span></p></header>
 <div class="filter" id="filters"></div>
 <div id="content"></div>
-<footer style="margin-top:64px;margin-bottom:32px;font-size:11px;color:#9ca3af;line-height:1.6"><div style="height:1px;width:100%;background:#ececf0;margin-bottom:24px"></div><div>Dee's Library · JLPT / N3_N5 / TOPIK / Bible / History / UNIVERSITY / Travel / Computer / Mahjong</div><div style="margin-top:4px">TOPIK now consolidated to index.html · 72.html / Topik-94.html / Topik_study.html 已刪除 · Computer added: index.html / CCNA / CCNP / DSE-ICT · Mahjong added</div></footer>
+<footer style="margin-top:64px;margin-bottom:32px;font-size:11px;color:#9ca3af;line-height:1.6"><div style="height:1px;width:100%;background:#ececf0;margin-bottom:24px"></div><div>Dee's Library · JLPT / N3_N5 / TOPIK / Bible / History / UNIVERSITY / Travel / Computer / GAME</div><div style="margin-top:4px">TOPIK now consolidated to index.html · 72.html / Topik-94.html / Topik_study.html 已刪除 · Computer added: index.html / CCNA / CCNP / DSE-ICT · GAME added</div></footer>
 </div>
 <script>
 const jc=[
@@ -43,17 +43,21 @@ const jc=[
 {id:"computer-index",repo:"Computer",title:"index.html",badge:"NEW",badgeColor:"#2ef2d1",desc:"Computer 總目錄・CCNA・CCNP・DSE-ICT Notes",href:"https://kong123485-beep.github.io/computer/index.html",icon:"💻"},
 {id:"computer-ccna",repo:"Computer",title:"CCNA-Notes-Complete.html",badge:"Cisco",badgeColor:"#2ef2d1",desc:"CCNA 200-301 Complete Notes",href:"https://kong123485-beep.github.io/computer/CCNA-Notes-Complete.html",icon:"🌐"},
 {id:"computer-ccnp",repo:"Computer",title:"Ccnp-Enterprise.html",badge:"Advanced",badgeColor:"#a78bfa",desc:"CCNP Enterprise Advanced Routing SD-WAN",href:"https://kong123485-beep.github.io/computer/Ccnp-Enterprise.html",icon:"🛣"},
-{id:"GAME-index",repo:"GAME",title:"index.html",badge:"NEW",badgeColor:"#059669",desc:"GAME 總目錄",href:"https://kong123485-beep.github.io/GAME/index.html",icon:"🀄"}
+{id:"GAME-index",repo:"GAME",title:"index.html",badge:"NEW",badgeColor:"#059669",desc:"GAME 總目錄・Mahjong・Xiangqi・Tic-tac-toe",href:"https://kong123485-beep.github.io/GAME/index.html",icon:"🀄"}
 ];
-const Ac=["ALL","JLPT","N3_N5","TOPIK","Bible","History","UNIVERSITY","Travel","Computer","Mahjong"];
+const Ac=["ALL","JLPT","N3_N5","TOPIK","Bible","History","UNIVERSITY","Travel","Computer","GAME"];
 let cur="ALL";
 function render(){
   const filters=document.getElementById('filters');
   filters.innerHTML=Ac.map(s=>`<button class="${cur===s?'active':''}" onclick="setFilter('${s}')">${s}</button>`).join('');
-  const list = cur==="ALL"?jc:jc.filter(x=>x.repo===cur);
+  let list = cur==="ALL"?jc:jc.filter(x=>x.repo===cur);
   const grouped={}; list.forEach(x=>{(grouped[x.repo]=grouped[x.repo]||[]).push(x)});
   let html="";
-  Ac.forEach(repo=>{ if(repo==="ALL") return; if(!grouped[repo]) return;
+  // Build sections based on actual grouped repos, not just Ac order
+  const order = ["JLPT","N3_N5","TOPIK","Bible","History","UNIVERSITY","Travel","Computer","GAME"];
+  const reposToShow = cur==="ALL" ? order : Object.keys(grouped);
+  reposToShow.forEach(repo=>{
+    if(!grouped[repo]) return;
     const items=grouped[repo];
     html+=`<div class="section"><h2><span style="width:10px;height:10px;border-radius:50px;background:${items[0].badgeColor};display:inline-block"></span>${repo} <span style="font-size:12px;color:#999;font-weight:400">(${items.length})</span></h2><div class="grid">`+
     items.map(p=>`<a class="card" href="${p.href}" target="_blank" rel="noopener noreferrer"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">${p.icon}</span><b style="font-size:14px;font-weight:700">${p.title}</b><span class="badge" style="background:${p.badgeColor}">${p.badge}</span></div><div class="repo">${p.desc}</div><div style="font-size:11px;color:#9ca3af;margin-top:6px;word-break:break-all">${p.href}</div></a>`).join('')+
