@@ -4,14 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>dee's Library</title>
-
-<!-- PWA 必備設定 -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#fbfbfa">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
 <style>
 :root{--bg:#fbfbfa;--text:#111113;--border:#ececf0;--safe-area-inset-top:env(safe-area-inset-top,0px);--safe-area-inset-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Noto Sans HK",Helvetica,Arial,sans-serif;margin:0;min-height:100%}
@@ -31,10 +28,10 @@
 <body>
 <div class="wrap">
 <header style="margin-bottom:4px"><h1 style="font-size:32px;font-weight:700;letter-spacing:-0.025em;margin:0;line-height:1.1">📚 dee's Library</h1>
-<p style="font-size:13px;color:#6b7280;margin-top:8px;line-height:1.5">保留之前網頁・只加 https://kong123485-beep.github.io/N3_N5/ + <span style="color:#111113;font-weight:500">TOPIK index → https://kong123485-beep.github.io/TOPIK/index.html</span> + <span style="color:#0ea5e9;font-weight:600">Weather → https://kong123485-beep.github.io/weather/index.html</span> + <span style="color:#ec4899;font-weight:600">Other → https://kong123485-beep.github.io/other/index.html</span></p></header>
+<p style="font-size:13px;color:#6b7280;margin-top:8px;line-height:1.5">保留之前網頁・只加 https://kong123485-beep.github.io/N3_N5/ + <span style="color:#111113;font-weight:500">TOPIK index → https://kong123485-beep.github.io/TOPIK/index.html</span> + <span style="color:#0ea5e9;font-weight:600">Weather → https://kong123485-beep.github.io/weather/index.html</span> + <span style="color:#ec4899;font-weight:600">Other → https://kong123485-beep.github.io/other/index.html</span> + <span style="color:#111113;font-weight:600">dee → https://kong123485-beep.github.io/dee/index.html</span></p></header>
 <div class="filter" id="filters"></div>
 <div id="content"></div>
-<footer style="margin-top:64px;margin-bottom:32px;font-size:11px;color:#9ca3af;line-height:1.6"><div style="height:1px;width:100%;background:#ececf0;margin-bottom:24px"></div><div>Dee's Library · JLPT / N3_N5 / TOPIK / Bible / History / UNIVERSITY / Travel / Computer / GAME / Weather / Other</div><div style="margin-top:4px">TOPIK now consolidated to index.html · Weather added: index.html only → https://kong123485-beep.github.io/weather/index.html · Other added: index.html → https://kong123485-beep.github.io/other/index.html</div></footer>
+<footer style="margin-top:64px;margin-bottom:32px;font-size:11px;color:#9ca3af;line-height:1.6"><div style="height:1px;width:100%;background:#ececf0;margin-bottom:24px"></div><div>Dee's Library · JLPT / N3_N5 / TOPIK / Bible / dee / History / UNIVERSITY / Travel / Computer / GAME / Weather / Other</div><div style="margin-top:4px">TOPIK now consolidated to index.html · Weather added: index.html only → https://kong123485-beep.github.io/weather/index.html · Other added: index.html → https://kong123485-beep.github.io/other/index.html · dee added: index.html → https://kong123485-beep.github.io/dee/index.html</div></footer>
 </div>
 <script>
 const jc=[
@@ -45,6 +42,7 @@ const jc=[
 {id:"bible-psalm",repo:"Bible",title:"psalm-1-23.html",badge:"詩篇默想",badgeColor:"#8b5cf6",desc:"詩篇1-23默想",href:"https://kong123485-beep.github.io/dee/psalm-1-23.html",icon:"✝"},
 {id:"bible-four",repo:"Bible",title:"english-four-lang.html",badge:"四語對照",badgeColor:"#f59e0b",desc:"四語對照",href:"https://kong123485-beep.github.io/dee/english-four-lang.html",icon:"✝"},
 {id:"bible-n4-100",repo:"Bible",title:"100-N4 level.html",badge:"NEW",badgeColor:"#10b981",desc:"100句 N4 level",href:"https://kong123485-beep.github.io/dee/100-N4%20level.html",icon:"✝"},
+{id:"dee-index",repo:"dee",title:"index.html",badge:"NEW",badgeColor:"#111113",desc:"dee 學習資源主目錄・英文公文 / 日文 / 聖經",href:"https://kong123485-beep.github.io/dee/index.html",icon:"📚"},
 {id:"history-index",repo:"History",title:"Index.html",badge:"UPDATED",badgeColor:"#f59e0b",desc:"History 總目錄",href:"https://kong123485-beep.github.io/History/Index.html",icon:"🏛"},
 {id:"university-index",repo:"UNIVERSITY",title:"index.html",badge:"NEW",badgeColor:"#0ea5e9",desc:"UNIVERSITY 總目錄",href:"https://kong123485-beep.github.io/UNIVERSITY/index.html",icon:"🎓"},
 {id:"travel-index",repo:"Travel",title:"index.html",badge:"NEW",badgeColor:"#f97316",desc:"Travel 總目錄",href:"https://kong123485-beep.github.io/travel/index.html",icon:"✈"},
@@ -56,7 +54,7 @@ const jc=[
 {id:"weather-index",repo:"Weather",title:"index.html",badge:"NEW",badgeColor:"#0ea5e9",desc:"Weather 總目錄・10日預報 Dashboard",href:"https://kong123485-beep.github.io/weather/index.html",icon:"🌦"},
 {id:"other-index",repo:"Other",title:"index.html",badge:"NEW",badgeColor:"#ec4899",desc:"Other 總目錄",href:"https://kong123485-beep.github.io/other/index.html",icon:"🗂"}
 ];
-const Ac=["ALL","JLPT","N3_N5","TOPIK","Bible","History","UNIVERSITY","Travel","Computer","GAME","Weather","Other"];
+const Ac=["ALL","JLPT","N3_N5","TOPIK","Bible","dee","History","UNIVERSITY","Travel","Computer","GAME","Weather","Other"];
 let cur="ALL";
 function render(){
   const filters=document.getElementById('filters');
@@ -64,7 +62,7 @@ function render(){
   let list = cur==="ALL"?jc:jc.filter(x=>x.repo===cur);
   const grouped={}; list.forEach(x=>{(grouped[x.repo]=grouped[x.repo]||[]).push(x)});
   let html="";
-  const order = ["JLPT","N3_N5","TOPIK","Bible","History","UNIVERSITY","Travel","Computer","GAME","Weather","Other"];
+  const order = ["JLPT","N3_N5","TOPIK","Bible","dee","History","UNIVERSITY","Travel","Computer","GAME","Weather","Other"];
   const reposToShow = cur==="ALL" ? order : Object.keys(grouped);
   reposToShow.forEach(repo=>{
     if(!grouped[repo]) return;
@@ -79,8 +77,6 @@ function setFilter(s){cur=s;render();window.scrollTo({top:0,behavior:'smooth'});
 render();
 </script>
 <script>(function(){function m(a){var h=a.getAttribute("href");if(!h)return;try{var u=new URL(h,document.baseURI);if((u.protocol==="http:"||u.protocol==="https:")&&u.host!==location.host){a.target="_blank";a.rel="noopener noreferrer";}}catch(e){}}function s(){document.querySelectorAll("a[href]").forEach(m);}if(document.readyState!=="loading"){s();}else{document.addEventListener("DOMContentLoaded",s);}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a){m(a);}},true);})();</script>
-
-<!-- 註冊 Service Worker -->
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
